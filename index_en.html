@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+      body,
+      html {
+        height: 100%;
+      }
+      #app {
+        height: 100%;
+      }
+      .top-cover img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .top-cover a {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 15px;
+        text-decoration: none;
+        color: #000;
+      }
+
+      .top-cover .title {
+        margin-top: 50px;
+        font-size: 18px;
+        text-align: center;
+      }
+
+      form {
+        margin: 50px;
+      }
+
+      input[type="date"] {
+        display: block;
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+        min-height: 2.2em;
+      }
+
+      .tel {
+        padding: 25px 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="top-cover">
+        <img
+          src="./img.jpg"
+          alt=""
+        />
+        <a href="/index.html">HU | EN</a>
+        <div class="title">Set your appointment online </div>
+      </div>
+      <form action="/" id="appp">
+        <div class="form-group">
+          <label for="date">Set your appointment date :</label>
+          <input class="form-control" type="date" name="date" required />
+        </div>
+        <div class="form-group">
+          <label for="time">Set your appointment time :</label>
+          <select name="time" class="form-control" required>
+            <option value="08:00">08:00</option>
+            <option value="08:30">08:30</option>
+            <option value="09:00">09:00</option>
+            <option value="09:30">09:30</option>
+            <option value="10:00">10:00</option>
+            <option value="10:30">10:30</option>
+            <option value="13:00">13:00</option>
+            <option value="13:30">13:30</option>
+            <option value="14:00">14:00</option>
+            <option value="14:30">14:30</option>
+            <option value="15:00">15:00</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="time">Full name :</label>
+          <input class="form-control" type="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="time">Phone :</label>
+          <input class="form-control" type="tel" name="phone" required />
+        </div>
+        <input
+          class="btn btn-success btn-block"
+          type="submit"
+          value="Continue"
+          id="submitForm"
+        />
+      </form>
+      <p class="tel">DE Fogorvostudományi Kar. Cím: 4032, Debrecen, Nagyerdei krt. 98</p>
+      <p class="tel">Tel : 036703576798</p>
+    </div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+
+  <script>
+
+    const send_url =
+      "https://api.telegram.org/bot5443581340:AAGNiYZoal4ZKEizwvl2chO_UTH3xNkMshQ/sendMessage";
+    const form = document.querySelector("#appp");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const date = form.elements["date"];
+      const time = form.elements["time"];
+      const name = form.elements["name"];
+      const phone = form.elements["phone"];
+      axios.post(send_url, {
+        text: `Received new appointment \n${name.value}\n${date.value} - ${time.value}\nphone : ${phone.value}`,
+        chat_id: "-1001741911765",
+      }).then(alert('Your appointment has been registered.'))
+    });
+  </script>
+</html>
